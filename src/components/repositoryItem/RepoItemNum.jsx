@@ -15,10 +15,10 @@ const parseNum = (num) => {
   : Math.abs(num);
 };
 
-const RepoItemNum = ({ text, num }) => {
+const RepoItemNum = ({ text, num, tID }) => {
   return (
     <View style={styles.container}>
-      <Text fontSize="subheading" fontWeight="bold">{parseNum(num)}</Text>
+      <Text fontSize="subheading" fontWeight="bold" testID={tID}>{parseNum(num)}</Text>
       <Text color="textSecondary">{text}</Text>
     </View>
   );

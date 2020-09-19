@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
 const RepositoryItemNums = ({ stars, forks, reviews, ratingAvg }) => {
   return (
     <View style={styles.flexContainer}>
-      <RepoItemNum num={stars} text='stars'/>
-      <RepoItemNum num={forks} text='forks'/>
-      <RepoItemNum num={reviews} text='reviews'/>
-      <RepoItemNum num={ratingAvg} text='rating'/>
+      <RepoItemNum num={stars} text='stars' tID='starCount'/>
+      <RepoItemNum num={forks} text='forks' tID='forkCount'/>
+      <RepoItemNum num={reviews} text='reviews' tID='reviewCount'/>
+      <RepoItemNum num={ratingAvg} text='rating' tID='ratingAvg'/>
     </View>
   );
 };

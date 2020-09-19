@@ -42,14 +42,17 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab text={'Repositories'} route={'/'}/>
         { data && data.authorizedUser != null 
-        ? <TouchableWithoutFeedback onPress={signOut}>
-            <Text fontSize="header"
-                  fontWeight="bold"
-                  color="header"
-                  style={styles.signOutButton}>
-                    Sign out
-            </Text>
-          </TouchableWithoutFeedback>
+        ? <>
+            <AppBarTab text={'Create a review'} route={'/createReview'}/>
+            <TouchableWithoutFeedback onPress={signOut}>
+              <Text fontSize="header"
+                    fontWeight="bold"
+                    color="header"
+                    style={styles.signOutButton}>
+                      Sign out
+              </Text>
+            </TouchableWithoutFeedback>
+          </>          
         : <AppBarTab text={'Sign in'} route={'/signIn'}/>
         }
       </ScrollView>
