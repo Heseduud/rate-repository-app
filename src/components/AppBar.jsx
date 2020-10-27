@@ -44,6 +44,7 @@ const AppBar = () => {
         { data && data.authorizedUser != null 
         ? <>
             <AppBarTab text={'Create a review'} route={'/createReview'}/>
+            <AppBarTab text={'Reviews'} route={'/reviews'}/>
             <TouchableWithoutFeedback onPress={signOut}>
               <Text fontSize="header"
                     fontWeight="bold"
@@ -53,7 +54,10 @@ const AppBar = () => {
               </Text>
             </TouchableWithoutFeedback>
           </>          
-        : <AppBarTab text={'Sign in'} route={'/signIn'}/>
+        : <>
+            <AppBarTab text={'Sign in'} route={'/signIn'}/>
+            <AppBarTab text={'Sign Up'} route={'/signUp'}/>
+          </>
         }
       </ScrollView>
     </View>

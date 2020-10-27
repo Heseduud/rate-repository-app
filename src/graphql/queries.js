@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-  query repositories {
-    repositories {
+  query repositories($orderBy: AllRepositoriesOrderBy!, $orderDirection: OrderDirection!, $searchKeyword: String!) {
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
       pageInfo {
         totalCount,
         hasNextPage,
@@ -10,6 +10,7 @@ export const GET_REPOSITORIES = gql`
         startCursor
       },
       edges {
+        cursor,
         node {
           id,
           name,
@@ -37,6 +38,16 @@ export const SIGN_IN = gql`
   }
 `;
 
+export const SIGN_UP = gql`
+  mutation createUser($username: String!, $password: String!) {
+    createUser(user: { username: $username, password: $password}) {
+      id,
+      username,
+      createdAt
+    }
+  }
+`;
+
 export const CREATE_REVIEW = gql`
   mutation createReview($repositoryName: String!, $ownerName: String!, 
     $rating: Int!, $text: String) {
@@ -48,16 +59,30 @@ export const CREATE_REVIEW = gql`
 `;
 
 export const GET_USER = gql`
-  query authorizedUser {
+  query authorizedUser($includeReviews: Boolean = false) {
     authorizedUser {
       id,
-      username
+      username,
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id,
+            text,
+            rating,
+            user {
+              username
+            },
+            createdAt
+          }
+          cursor
+        }
+      }
     }
   }
 `;
 
 export const GET_REPOSITORY = gql`
-  query repository($id: ID!) {
+  query repository($id: ID!, $first: Int!, $after: String) {
     repository(id: $id) {
       id,
       name,
@@ -72,7 +97,7 @@ export const GET_REPOSITORY = gql`
       language,
       ownerAvatarUrl,
       url,
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             id,
@@ -83,7 +108,14 @@ export const GET_REPOSITORY = gql`
               id,
               username
             }
-          }
+          },
+          cursor
+        },
+        pageInfo {
+          endCursor,
+          startCursor,
+          totalCount,
+          hasNextPage
         }
       }
     }

@@ -12,7 +12,8 @@
   },
   "rules": {
     "react/prop-types": "off",
-    "semi": "error"
+    "semi": "error",
+    "quotes": [1, "single"]
   },
   "globals": {
     "process": true

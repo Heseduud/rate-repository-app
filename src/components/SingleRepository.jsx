@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-native';
 import { format } from 'date-fns';
 
 import RepositoryItem from './repositoryItem/RepositoryItem';
 import { GET_REPOSITORY } from '../graphql/queries';
+import useRepository from '../hooks/userepository';
 import Text from '../components/Text';
 import Theme from '../theme';
 
@@ -39,10 +40,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     borderColor: Theme.colors.primary
+  },
+  flatlistContainer: {
+    maxHeight: Dimensions.get('window').height
   }
 });
 
-const ItemSeparator = () => <View style={styles.separator}/>;
+export const ItemSeparator = () => <View style={styles.separator}/>;
 
 const RepositoryInfo = ({ repo }) => {
   return (
@@ -53,7 +57,7 @@ const RepositoryInfo = ({ repo }) => {
   );
 };
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
   return (
     <View style={styles.reviewContainer}>
       <View style={styles.ratingContainer}>
@@ -70,21 +74,27 @@ const ReviewItem = ({ review }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { data } = useQuery(GET_REPOSITORY, {
-    fetchPolicy: 'cache-and-network',
-    variables: { id: id }
-  });
+  // const { data } = useQuery(GET_REPOSITORY, {
+  //   fetchPolicy: 'cache-and-network',
+  //   variables: { id: id }
+  // });
 
-  // Probably needs wrapper for styling
-  if (data && data.repository) {
-    const reviews = data.repository.reviews.edges.map(edge => edge.node);
+  const { repository, fetchMore } = useRepository({id: id, first: 8});
 
+  const onEndReach = () => {
+    fetchMore();
+  };
+
+  if (repository != undefined) {
     return (
-      <FlatList 
-        data={reviews}
+      <FlatList
+        style={styles.flatlistContainer}
+        data={repository.reviews.edges.map(edge => edge.node)}
         ItemSeparatorComponent={ItemSeparator}
         keyExtractor={({id}) => id}
-        ListHeaderComponent={() => <RepositoryInfo repo={data.repository}/>}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.7}
+        ListHeaderComponent={() => <RepositoryInfo repo={repository}/>}
         renderItem={({ item }) => 
           <ReviewItem review={item}/>
         }
@@ -92,7 +102,24 @@ const SingleRepository = () => {
     );
   }
 
-  return null;
+  // // Probably needs wrapper for styling
+  // if (data && data.repository) {
+  //   const reviews = data.repository.reviews.edges.map(edge => edge.node);
+
+  //   return (
+  //     <FlatList 
+  //       data={reviews}
+  //       ItemSeparatorComponent={ItemSeparator}
+  //       keyExtractor={({id}) => id}
+  //       ListHeaderComponent={() => <RepositoryInfo repo={data.repository}/>}
+  //       renderItem={({ item }) => 
+  //         <ReviewItem review={item}/>
+  //       }
+  //     />
+  //   );
+  // }
+
+  return <View/>;
 };
 
 export default SingleRepository;

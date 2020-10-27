@@ -11,19 +11,21 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
+    "@react-native-community/picker": "1.6.0",
     "apollo-boost": "^0.4.9",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
-    "expo": "~38.0.8",
-    "expo-status-bar": "^1.0.2",
-    "expo-web-browser": "^8.3.1",
+    "expo": "^38.0.0",
+    "expo-status-bar": "^1.0.0",
+    "expo-web-browser": "~8.3.1",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
-    "react": "~16.11.0",
-    "react-dom": "~16.11.0",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-web": "~0.11.7",
     "react-router-native": "^5.2.0",
+    "use-debounce": "^5.0.1",
     "yup": "^0.29.3"
   },
   "jest": {
@@ -40,16 +42,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "@expo/webpack-config": "^0.12.28",
+    "@expo/webpack-config": "^0.12.16",
     "@testing-library/jest-native": "^3.4.2",
     "@testing-library/react-native": "^7.0.2",
     "babel-eslint": "^10.1.0",
-    "babel-preset-expo": "~8.1.0",
+    "babel-preset-expo": "^8.2.3",
     "eslint": "^7.8.0",
     "eslint-plugin-jest": "^24.0.1",
     "eslint-plugin-react": "^7.20.6",
     "jest": "^26.4.2",
-    "jest-expo": "^38.0.2"
+    "jest-expo": "^38.0.0"
   },
   "private": true
 }
