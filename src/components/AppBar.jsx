@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import Constants from 'expo-constants';
 import { useQuery } from '@apollo/react-hooks';
 import { useApolloClient } from '@apollo/client';
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    maxWidth: Dimensions.get('window').width,
     paddingTop: Constants.statusBarHeight + 10,
     paddingBottom: Constants.statusBarHeight,
     backgroundColor: Theme.colors.barBackground,

@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { useParams } from 'react-router-native';
 import { format } from 'date-fns';
 
 import RepositoryItem from './repositoryItem/RepositoryItem';
-import { GET_REPOSITORY } from '../graphql/queries';
 import useRepository from '../hooks/userepository';
 import Text from '../components/Text';
 import Theme from '../theme';
@@ -40,9 +38,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     borderColor: Theme.colors.primary
-  },
-  flatlistContainer: {
-    maxHeight: Dimensions.get('window').height
   }
 });
 
@@ -74,11 +69,6 @@ export const ReviewItem = ({ review }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-  // const { data } = useQuery(GET_REPOSITORY, {
-  //   fetchPolicy: 'cache-and-network',
-  //   variables: { id: id }
-  // });
-
   const { repository, fetchMore } = useRepository({id: id, first: 8});
 
   const onEndReach = () => {
@@ -101,23 +91,6 @@ const SingleRepository = () => {
       />
     );
   }
-
-  // // Probably needs wrapper for styling
-  // if (data && data.repository) {
-  //   const reviews = data.repository.reviews.edges.map(edge => edge.node);
-
-  //   return (
-  //     <FlatList 
-  //       data={reviews}
-  //       ItemSeparatorComponent={ItemSeparator}
-  //       keyExtractor={({id}) => id}
-  //       ListHeaderComponent={() => <RepositoryInfo repo={data.repository}/>}
-  //       renderItem={({ item }) => 
-  //         <ReviewItem review={item}/>
-  //       }
-  //     />
-  //   );
-  // }
 
   return <View/>;
 };

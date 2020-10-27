@@ -52,7 +52,6 @@ export class RepositoryListContainer extends React.Component {
   }
 }
 
-// TextInput etc for search bar
 const RepositoryListHeader = ({ SORT_TEXTS, setStates, pickerText, setFilter, filterText }) => {
   return (
     <View>
@@ -72,31 +71,6 @@ const RepositoryListHeader = ({ SORT_TEXTS, setStates, pickerText, setFilter, fi
     </View>
   );
 };
-
-// export const RepositoryListContainer = ({ repositories, HeaderComponent }) => {
-//   const history = useHistory();
-//   const repositoryNodes = repositories
-//     ? repositories.edges.map(edge => edge.node)
-//     : [];
-
-//   const onPress = (id) => {
-//     history.push(`/repositories/${id}`);
-//   };
-
-//   return (
-//     <FlatList
-//       data={repositoryNodes}
-//       ItemSeparatorComponent={ItemSeparator}
-//       keyExtractor={(item) => item.id}
-//       ListHeaderComponent={() => <HeaderComponent/>}
-//       renderItem={({ item }) =>
-//         <TouchableOpacity onPress={() => onPress(item.id)}>
-//           <RepositoryItem item={item}/>
-//         </TouchableOpacity>
-//       }
-//     />
-//   );
-// };
 
 const RepositoryList = () => {
   // Enums for possible values for sort hook
@@ -160,22 +134,6 @@ const RepositoryList = () => {
   }
 
   return <View/>;
-
-  // return <RepositoryListContainer
-  //   repositories={repositories}
-  //   HeaderComponent={() => {return (
-  //       <Picker
-  //         selectedValue={pickerText}
-  //         onValueChange={(itemValue) => setStates(itemValue)}
-  //         >
-  //           <Picker.Item label={SORT_TEXTS.latest_Repositories} value={SORT_TEXTS.latest_Repositories}/>
-  //           <Picker.Item label={SORT_TEXTS.highest_Rated} value={SORT_TEXTS.highest_Rated}/>
-  //           <Picker.Item label={SORT_TEXTS.lowest_Rated} value={SORT_TEXTS.lowest_Rated}/>
-  //       </Picker>
-  //       );
-  //     }
-  //   }
-  // />;
 };
 
 export default RepositoryList;
